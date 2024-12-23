@@ -1,0 +1,17 @@
+{
+  "dependencies": {
+    "knex": "^2.4.2",
+    "pg": "^8.13.1",
+    "restify": "^11.1.0",
+    "restify-cors-middleware2": "^2.2.1"
+  },
+  "name": "api_loja",
+  "version": "1.0.0",
+  "description": "API de Login",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Krishna Eduardo",
+  "license": "ISC"
+}
