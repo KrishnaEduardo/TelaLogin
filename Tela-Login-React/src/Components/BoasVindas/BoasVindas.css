@@ -1,0 +1,37 @@
+.containerlogout {
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center; 
+    height: 100vh; 
+    background: linear-gradient(#2A00B7, #42006C);
+    padding: 20px;
+    box-sizing: border-box;
+    overflow: hidden; 
+}
+
+h1 {
+    font-size: 1.5rem;
+    color: white; 
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.logout {
+    background-color: #FF4C4C; 
+    color: white; 
+    border: none;
+    border-radius: 5px;
+    padding: 10px 20px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease; 
+}
+
+.logout:hover {
+    background-color: #e04343; 
+}
+
+.logout:focus {
+    outline: none;
+}
