@@ -1,9 +1,9 @@
 import { useState } from 'react';
 import './TelaLogin.css';
 import { useForm } from 'react-hook-form';
-import user_icon from '../Assets/user.png';
-import email_icon from '../Assets/email.png';
-import senha_icon from '../Assets/senha.png';
+import user_icon from '../../assets/user.png'
+import email_icon from '../../assets/email.png';
+import senha_icon from '../../assets/senha.png'
 import { yupResolver } from '@hookform/resolvers/yup';
 import { useNavigate } from 'react-router-dom';
 import jsCookie from 'js-cookie';
