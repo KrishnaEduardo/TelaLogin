@@ -5,38 +5,16 @@ import user_icon from '../Assets/user.png';
 import email_icon from '../Assets/email.png';
 import senha_icon from '../Assets/senha.png';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
-import { InferType } from 'yup';
 import { useNavigate } from 'react-router-dom';
 import jsCookie from 'js-cookie';
 import { toast } from 'react-hot-toast';
-
-const cadastroSchema = yup.object({
-  nome: yup.string().required('Por favor, preencha o seu nome.'),
-  email: yup
-    .string()
-    .email('O formato do e-mail está incorreto')
-    .required('Por favor, preencha o seu email.'),
-  senha: yup
-    .string()
-    .min(6, 'A senha deve ter pelo menos 6 caracteres.')
-    .required('Por favor, escolha a sua senha.'),
-});
-
-const loginSchema = yup.object({
-  email: yup
-    .string()
-    .email('O formato do e-mail está incorreto')
-    .required('Por favor, preencha o seu email.'),
-  senha: yup.string().required('Por favor, escolha a sua senha.'),
-});
-
-type CadastroData = InferType<typeof cadastroSchema>;
-type LoginData = InferType<typeof loginSchema>;
+import { cadastroSchema, loginSchema, CadastroData, LoginData } from '../Users/schema';
 
 export const TelaLogin = () => {
+  const BASE_URL = `${import.meta.env.VITE_BASE_URL}`
   const [action, setAction] = useState<'Login' | 'Cadastre-se'>('Login');
   const navigate = useNavigate(); 
+
   const {
     register,
     handleSubmit,
@@ -47,10 +25,11 @@ export const TelaLogin = () => {
     mode: 'onBlur',
   });
 
+
   const onSubmit = async (data: CadastroData | LoginData) => {
     if (action === 'Login') {
       try {
-        const response = await fetch('http://localhost:8001/login', {
+        const response = await fetch(`${BASE_URL}/login`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -74,7 +53,7 @@ export const TelaLogin = () => {
     } else {
       // caso seja cadastro
       try {
-        const response = await fetch('http://localhost:8001/cadastro', {
+        const response = await fetch(`${BASE_URL}/cadastro`, {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
@@ -104,6 +83,22 @@ export const TelaLogin = () => {
       reset(); 
     }
   };
+
+  const ifCadastro = () => {
+  if (action === 'Cadastre-se') {
+    handleSubmit(onSubmit)(); // envia o formulário se a ação for = 'Cadastre-se'
+  } else {
+    handleActionChange('Cadastre-se');
+  }
+};
+
+const ifLogin = () => {
+  if (action === 'Login') {
+    handleSubmit(onSubmit)(); // envia o formulário se a ação for = 'Cadastre-se'
+  } else {
+    handleActionChange('Login');
+  }
+};
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -143,23 +138,13 @@ export const TelaLogin = () => {
         <div className='submit-container'>
           <div
             className={action === 'Login' ? 'submit gray' : 'submit'}
-            onClick={() => {
-              if (action === 'Cadastre-se') {
-                handleSubmit(onSubmit)(); // envia o formulario se a ação for = cadastre-se
-              }
-              handleActionChange('Cadastre-se');
-            }}
+            onClick={ifCadastro}
           >
             Cadastre-se
           </div>
           <div
             className={action === 'Cadastre-se' ? 'submit gray' : 'submit'}
-            onClick={() => {
-              if (action === 'Login') {
-                handleSubmit(onSubmit)(); // envia o formulario se a ação for = login
-              }
-              handleActionChange('Login');
-            }}
+            onClick={ifLogin}
           >
             Login
           </div>

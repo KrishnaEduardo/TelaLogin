@@ -1,18 +1,14 @@
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
-import { TelaLogin } from './Components/TelaLogin/TelaLogin';
-import { BoasVindas } from './Components/BoasVindas/BoasVindas';
+import { RouterProvider } from "react-router-dom"; 
 import { Toaster } from 'react-hot-toast';
+import { router } from './Components/Routes/Routes';
 
 
 function App() {
   return (
-    <Router>
-        <Toaster/>
-      <Routes>
-        <Route path="/" element={<TelaLogin />} />
-        <Route path="/welcome" element={<BoasVindas />} />
-      </Routes>
-    </Router>
+      <>
+          <Toaster />
+          <RouterProvider router={router} />
+      </>
   );
 }
 
